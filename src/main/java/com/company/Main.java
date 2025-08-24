@@ -1,6 +1,8 @@
 package com.company;
 
 import model.Student;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import repository.DBStudentRepository;
 import repository.ProfesorRepository;
 import repository.StudentRepository;
@@ -13,20 +15,15 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Properties props = new Properties();
+        Logger logger = LogManager.getLogger(ExempluUtilizareLogger.class);
+        logger.info("Aplicația a pornit.");
+
         try {
-            props.load(new FileReader("bd.config"));
-            DBStudentRepository studentRepo = new DBStudentRepository(props);
-            ProfesorRepository profesorRepo = new ProfesorRepository();
-
-            StudentService studentService = new StudentService(studentRepo);
-
-            Student s = new Student("Andrei", 19, "324", null);
-            s.setNote(studentService.getNotePerStudent("Andrei", 19, "324", null));
-
-            System.out.println(s);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            int rezultat = 10 / 0;
+        } catch (ArithmeticException e) {
+            logger.error("Eroare: Împărțire la zero!", e);
+        } finally {
+            logger.warn("Aplicația se va închide.");
         }
     }
 }

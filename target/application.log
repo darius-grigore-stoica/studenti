@@ -1,0 +1,5 @@
+24 Aug 2025 19:53:31,094 INFO  com.company.Main 19 main - Aplicația a pornit.
+24 Aug 2025 19:53:31,098 ERROR com.company.Main 24 main - Eroare: Împărțire la zero!
+java.lang.ArithmeticException: / by zero
+	at com.company.Main.main(Main.java:22) [main/:?]
+24 Aug 2025 19:53:31,111 WARN  com.company.Main 26 main - Aplicația se va închide.
