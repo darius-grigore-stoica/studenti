@@ -1,9 +1,12 @@
 package service;
 
+import exceptions.AgeException;
+import exceptions.GrupaException;
 import model.Student;
 import repository.DBStudentRepository;
 import repository.IRepository;
 import repository.StudentRepository;
+import validators.StudentValidator;
 
 import java.util.List;
 
@@ -14,9 +17,18 @@ public class StudentService {
         this.repository = repository;
     }
 
-    public void addStudent(String nume, int varsta, String grupa, List<Integer> note) {
+    public void addStudent(String nume, int varsta, String grupa, List<Integer> note) throws RuntimeException, AgeException, GrupaException{
         Student s = new Student(nume, varsta, grupa, note);
-        repository.save(s);
+        try{
+            StudentValidator.validate(s);
+            repository.save(s);
+        } catch(RuntimeException e){
+            throw new RuntimeException(e);
+        } catch (GrupaException e) {
+            throw new GrupaException(e.getMessage());
+        } catch (AgeException e) {
+            throw new AgeException(e.getMessage());
+        }
     }
 
     public void printStudents() {

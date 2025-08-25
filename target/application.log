@@ -1,5 +1,6 @@
-24 Aug 2025 19:53:31,094 INFO  com.company.Main 19 main - Aplicația a pornit.
-24 Aug 2025 19:53:31,098 ERROR com.company.Main 24 main - Eroare: Împărțire la zero!
-java.lang.ArithmeticException: / by zero
-	at com.company.Main.main(Main.java:22) [main/:?]
-24 Aug 2025 19:53:31,111 WARN  com.company.Main 26 main - Aplicația se va închide.
+25 Aug 2025 19:47:16,776 INFO  com.company.Main 24 main - Aplicația a pornit.
+25 Aug 2025 19:47:16,779 INFO  com.company.Main 29 main - S-au incarcat proprietatile bazei de date
+25 Aug 2025 19:47:16,784 INFO  repository.JdbcUtils 27 getNewConnection - trying to connect to database url = jdbc:mysql://localhost:3306/facultate
+25 Aug 2025 19:47:17,189 INFO  repository.DBStudentRepository 28 save - S-a creat conectiunea cu baza de date
+25 Aug 2025 19:47:17,224 ERROR repository.DBStudentRepository 36 save - Duplicate entry 'Robert' for key 'student.nume'
+25 Aug 2025 19:47:17,224 ERROR com.company.Main 36 main - java.lang.RuntimeException: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Robert' for key 'student.nume'

@@ -1,6 +1,9 @@
 package repository;
 
+import exceptions.DuplicateElement;
 import model.Student;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,20 +16,25 @@ import java.util.Properties;
 public class DBStudentRepository implements IRepository<Student> {
 
     private JdbcUtils jdbcUtils;
+    private Logger logger;
 
     public DBStudentRepository(Properties props){
         jdbcUtils = new JdbcUtils(props);
+        logger = LogManager.getLogger(DBStudentRepository.class);
     }
 
     @Override
-    public void save(Student entity) {
+    public void save(Student entity) throws  RuntimeException {
         Connection conn = jdbcUtils.getInstance();
+        logger.info("S-a creat conectiunea cu baza de date");
         try (PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO student(nume, varsta, grupa) VALUES (?, ?, ?)")){
             preparedStatement.setString(1, entity.getNume());
             preparedStatement.setInt(2, entity.getVarsta());
             preparedStatement.setString(3, entity.getGrupa());
             preparedStatement.execute();
-        } catch (Exception e) {
+            logger.info("S-a introdus un nou student in DB");
+        } catch (RuntimeException | SQLException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
